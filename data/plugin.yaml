@@ -1,5 +1,7 @@
 ---
 mcollective_agent_nettest::config_name: nettest
+mcollective_agent_nettest::gem_dependencies:
+  'net-ping': '2.0.2'
 mcollective_agent_nettest::common_files:
 - data/nettest_data.rb
 - data/nettest_data.ddl
