@@ -1,0 +1,23 @@
+{
+  "name": "opuscodium-mcollective_agent_nettest",
+  "version": "3.0.4",
+  "author": "Dean Smith <dean@zelotus.com>",
+  "summary": "Agent to do network tests from a mcollective host",
+  "license": "BSD",
+  "source": "http://github.com/deasmi",
+  "project_page": "http://github.com/deasmi",
+  "issues_url": "https://github.com/deasmi/issues",
+  "dependencies": [
+    {
+      "name": "choria/mcollective",
+      "version_requirement": ">= 0.2.0 < 2.0.0"
+    }
+  ],
+  "data_provider": null,
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.9.0"
+    }
+  ]
+}

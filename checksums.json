@@ -1,0 +1,20 @@
+{
+  "README.md": "b14609eb85e6d39bd41f9417a7ae2872",
+  "data/defaults.yaml": "184dbcd85128543c671883edd4e51a6e",
+  "data/plugin.yaml": "f39d6a248b61919eea19072f33bbb4a4",
+  "files/mcollective/agent/nettest.ddl": "b3719943a794885fbac23ed0bdf76ba5",
+  "files/mcollective/agent/nettest.rb": "ed31d3ffe283c52ad7f3f573d3f1c62f",
+  "files/mcollective/aggregate/nettest_mma.ddl": "2acd083078b8b2055e7a5279148fb74f",
+  "files/mcollective/aggregate/nettest_mma.rb": "58b2e31318ab79141fb5b35ecba4b7e7",
+  "files/mcollective/application/nettest.rb": "9f7d8498ad2a5808b2664229ef15c82f",
+  "files/mcollective/data/nettest_data.ddl": "1b2d47b76959106149907ff42d566895",
+  "files/mcollective/data/nettest_data.rb": "793f0008c099c8f1b713005a35fe01d0",
+  "files/mcollective/util/nettest_agent.rb": "9596a551e343e9591ca59b4c2112ac7d",
+  "files/mcollective/validator/nettest_fqdn.ddl": "e0412a42e5617a2e04bef50ef633af13",
+  "files/mcollective/validator/nettest_fqdn.rb": "e5cfb37490dbf437575b756673cfc347",
+  "files/mcollective/validator/nettest_server_address.ddl": "4406b1f7a115a1ae877c219cbb2f2e93",
+  "files/mcollective/validator/nettest_server_address.rb": "b4db15303a64a25427c624d6f1636e10",
+  "hiera.yaml": "686844de205da23a5552c4a50a517929",
+  "manifests/init.pp": "00eed172b2cf204ec301ce00b51c1808",
+  "metadata.json": "37c6be427dbd3d5dd957152518f12a40"
+}

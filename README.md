@@ -1,72 +1,65 @@
-Nettest agent
-=============
+# mcollective_agent_nettest version 3.0.4
 
-This is a simple agent that will execute a ping or remote connection test on mcollective hosts
+#### Table of Contents
 
-I often find myself logging onto boxes to ping different sites to diagnose local or remote network issues, this means I can now just issue a single command and get results from anywhere I’m running mcollective.
+1. [Overview](#overview)
+1. [Usage](#usage)
+1. [Configuration](#configuration)
 
-Installation
-------------
+## Overview
 
-* Install RubyGem [Net::Ping](http://raa.ruby-lang.org/project/net-ping/)
-* Follow the [basic plugin install guide](http://projects.puppetlabs.com/projects/mcollective-plugins/wiki/InstalingPlugins)
+Agent to do network tests from a mcollective host
 
-Usage
------
+The mcollective_agent_nettest module is generated automatically, based on the source from http://github.com/deasmi.
 
-ICMP ping test:
+Available Actions:
 
-    $ mco nettest ping hostname
-    Do you really want to perform network tests unfiltered? (y/n): y
+  * **connect** - Check connectivity of remote server on port
+  * **ping** - Returns rrt of ping to host
 
-     * [ ============================================================> ] 11 / 11
+## Usage
 
-    node1.example.net                        time = 0.429
-    node8.example.net                        time = 0.388
-    node5.example.net                        time = 0.686
-    node4.example.net                        time = 1.858
-    middleware.example.net                   time = 2.697
-    node7.example.net                        time = 0.637
-    node0.example.net                        time = 16.455
-    node9.example.net                        time = 1.974
-    node6.example.net                        time = 0.415
-    node3.example.net                        time = 0.389
-    node2.example.net                        time = 0.4
+You can include this module into your infrastructure as any other module, but as it's designed to work with the [choria mcollective](http://forge.puppet.com/choria/mcollective) module you can configure it via Hiera:
 
-    Summary of RTT:
+```yaml
+mcollective::plugin_classes:
+  - mcollective_agent_nettest
+```
 
-       Min: 0.388ms  Max: 16.455ms  Average: 2.393ms
+## Configuration
 
+Server and Client configuration can be added via Hiera and managed through tiers in your site Hiera, they will be merged with any included in this module
 
-    Finished processing 11 / 11 hosts in 85.76 ms
+```yaml
+mcollective_agent_nettest::config:
+   example: value
+```
 
-TCP connection test to port 8140:
+This will be added to both the `client.cfg` and `server.cfg`, you can likewise configure server and client specific settings using `mcollective_agent_nettest::client_config` and `mcollective_agent_nettest::server_config`.
 
-    $ mco nettest connect hostname 8140
+These settings will be added to the `/etc/puppetlabs/mcollective/plugin.d/` directory in individual files.
 
-Validator
----------
+For a full list of possible configuration settings see the module [source repository documentation](http://github.com/deasmi).
 
-The nettest agent supplies an fqdn validator which will validate if a string is a valid uri.
+## Data Reference
 
-    validate :fqdn, :nettest_fqdn
+  * `mcollective_agent_nettest::gem_dependencies` - Deep Merged Hash of gem name and version this module depends on
+  * `mcollective_agent_nettest::manage_gem_dependencies` - disable managing of gem dependencies
+  * `mcollective_agent_nettest::package_dependencies` - Deep Merged Hash of package name and version this module depends on
+  * `mcollective_agent_nettest::manage_package_dependencies` - disable managing of packages dependencies
+  * `mcollective_agent_nettest::class_dependencies` - Array of classes to include when installing this module
+  * `mcollective_agent_nettest::package_dependencies` - disable managing of class dependencies
+  * `mcollective_agent_nettest::config` - Deep Merged Hash of common config items for this module
+  * `mcollective_agent_nettest::server_config` - Deep Merged Hash of config items specific to managed nodes
+  * `mcollective_agent_nettest::client_config` - Deep Merged Hash of config items specific to client nodes
+  * `mcollective_agent_nettest::policy_default` - `allow` or `deny`
+  * `mcollective_agent_nettest::policies` - List of `actionpolicy` policies to deploy with an agent
+  * `mcollective_agent_nettest::client` - installs client files when true - defaults to `$mcollective::client`
+  * `mcollective_agent_nettest::server` - installs server files when true - defaults to `$mcollective::server`
+  * `mcollective_agent_nettest::ensure` - `present` or `absent`
 
-The nettest agent supplies a server address validator which will validate that a given string includes both a valid hostname and port number separated by a colon.
+## Development:
 
-    validate :serveraddress, :nettest_server_address
+To contribute to this MCollective plugin please visit http://github.com/deasmi.
 
-Data Plugin
------------
-
-The nettest agent also supplies a data plugin which uses the nettest agent to check if a connection to a fqdn at a specific port can be made. The data plugin will return 'true' or 'false' and can be used during discovery or any other place where the MCollective discovery language is used.
-
-    $ mco rpc rpcutil -S "Nettest('myhost', '8080').connect=true"
-
-Mma Aggregate Plugin
---------------------
-
-The nettest agent supplies a mma aggregate plugin which will determine the minimum value, maximum value and average value of a set of inputs determinted in a DDL.
-
-    summarize do
-      aggregate nettest_mma(:rtt, :format => "Min: %.3fms  Max: %.3fms  Average: %.3fms")
-    end
+This module was generated using the Choria Plugin Packager based on templates found at the [GitHub Project](https://github.com/choria-io/).
